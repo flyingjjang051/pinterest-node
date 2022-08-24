@@ -44,6 +44,15 @@ a {
 }
 #main {
   padding: 100px 0;
+  #contents {
+    width: 1200px;
+    margin: 100px auto;
+  }
+  .thumbnail {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+  }
   #filter {
     margin-bottom: 50px;
     ul {
@@ -211,6 +220,7 @@ a {
   display: table;
   width: 100%;
   table-layout: fixed;
+  background-color: #fff;
   .head {
     display: table-header-group;
     background-color: #ddd;

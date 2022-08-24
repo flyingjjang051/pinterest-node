@@ -47,6 +47,19 @@ app.get("/", (req, res) => {
       res.render("index", { list: result });
     });
 });
+app.get("/list", (req, res) => {
+  // db에서 데이터 읽어서
+  // index로 데이터 전달하기...
+  db.collection("pinterest")
+    .find()
+    .toArray((err, result) => {
+      res.render("list", { list: result });
+    });
+});
+app.get("/detail/:title", (req, res) => {
+  console.log(req.params.title);
+  res.render("detail");
+});
 app.get("/insert", (req, res) => {
   res.render("insert");
 });

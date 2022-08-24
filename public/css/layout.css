@@ -36,6 +36,15 @@ a {
 #main {
   padding: 100px 0;
 }
+#main #contents {
+  width: 1200px;
+  margin: 100px auto;
+}
+#main .thumbnail {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
 #main #filter {
   margin-bottom: 50px;
 }
@@ -203,6 +212,7 @@ a {
   display: table;
   width: 100%;
   table-layout: fixed;
+  background-color: #fff;
 }
 .table .head {
   display: table-header-group;
