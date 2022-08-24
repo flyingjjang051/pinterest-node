@@ -15,7 +15,7 @@
     </div>
     <div class="inputBox">
       <label>
-        <span class="label">장르</span>
+        <span class="label">카테고리</span>
         <div>
           <ul class="categoryList">
             <li><span>paint</span><input type="checkbox" value="paint" name="category" /></li>
@@ -51,6 +51,6 @@
 </main>
 <script>
   const date = document.querySelector("#date");
-  const picker = new Lightpick({ field: date });
+  const picker = new Lightpick({ field: date, format: "YYYY-MM-DD" });
 </script>
 <%- include("include/footer"); %>
