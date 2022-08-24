@@ -73,19 +73,43 @@ app.post("/register", fileUpload.single("image"), (req, res) => {
   console.log(title, "===", date, "===", category, "===", desc, "===", point, "===", image);
   //res.render("insert");
   cloudinary.uploader.upload(req.file.path, (result) => {
-    console.log(result);
-    db.collection("pinterest").insertOne({
-      title: title,
-      date: date,
-      category: category,
-      desc: desc,
-      point: point,
-      image: result.url,
+    //console.log(result);
+    // 이미지 업로드가 재대로 되면 1. pinterestCount에서 name이 total을 찾아서 결과중에 count찾아서 pinterest의 id값으로 입력을 한다.
+    // 그리고 pinterest에 값이 제대로 입력이 되면 다시 pinterrestCount의 count값을 1 증가 시켜서 update한다.
+    db.collection("pinterestCount").findOne({ name: "total" }, (err, result01) => {
+      const count = result01.count;
+      db.collection("pinterest").insertOne(
+        {
+          title: title,
+          date: date,
+          category: category,
+          desc: desc,
+          point: point,
+          image: result.url,
+          id: count,
+        },
+        (err, result) => {
+          db.collection("pinterestCount").updateOne({ name: "total" }, { $inc: { count: 1 } }, (err, result) => {
+            if (err) {
+              console.log(err);
+            }
+            res.redirect("/");
+          });
+        }
+      );
     });
-    res.redirect("/");
   });
 });
-
+app.get("/delete", (req, res) => {
+  //console.log(req.query.id);
+  db.collection("pinterest").deleteOne({ id: parseInt(req.query.id) }, (err, result) => {
+    if (result.deletedCount > 0) {
+      res.json({ isDelete: true });
+    } else {
+      res.json({ isDelete: false });
+    }
+  });
+});
 app.listen(PORT, () => {
   console.log(`${PORT}에서 서버 대기중`);
 });
