@@ -28,12 +28,12 @@ app.set("port", process.env.PORT || 8099);
 const PORT = app.get("port");
 
 const storage = multer.diskStorage({
-  destination: (req, file, done) => {
-    done(null, path.join(__dirname, "/upload"));
-  },
-  filename: (req, file, done) => {
-    done(null, file.originalname);
-  },
+  // destination: (req, file, done) => {
+  //   done(null, path.join(__dirname, "/upload"));
+  // },
+  // filename: (req, file, done) => {
+  //   done(null, file.originalname);
+  // },
 });
 
 const fileUpload = multer({ storage: storage });

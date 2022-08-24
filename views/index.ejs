@@ -33,4 +33,53 @@
 <div class="cursor">
   <span class="txt"></span>
 </div>
+<script>
+  //prettier-ignore
+  const itemList = $("#works .itemList");
+  const filterList = $("#filter li");
+  const cursor = $(".cursor");
+  let grid = null;
+
+  itemList.imagesLoaded().always(function () {
+    grid = itemList.isotope({
+      itemSelector: ".item",
+      percentPosition: true,
+      layoutMode: "masonry",
+      getSortData: {
+        point: ".point .num parseFloat",
+      },
+    });
+  });
+
+  filterList.on("click", function () {
+    $(this).addClass("on").siblings().removeClass("on");
+    const filter = $(this).data("filter");
+    grid.isotope({ filter: `.${filter}`, sortBy: "point", sortAscending: false });
+  });
+
+  $(window).on(
+    "mousemove",
+    _.throttle(function (e) {
+      gsap.to(cursor, { left: e.clientX, top: e.clientY, duration: 0.2 });
+    }, 1000 / 48)
+  );
+  $(".itemList").on(
+    "mouseenter",
+    "li",
+    _.debounce(function () {
+      cursor.find(".txt").text("CLICK");
+      gsap.killTweensOf(cursor);
+      gsap.to(cursor, { width: 100, height: 100, backgroundColor: "#f00", ease: "elastic", duration: 1 });
+    }, 100)
+  );
+  $(".itemList").on(
+    "mouseleave",
+    "li",
+    _.debounce(function () {
+      cursor.find(".txt").text("");
+      gsap.killTweensOf(cursor);
+      gsap.to(cursor, { width: 20, height: 20, backgroundColor: "#fff", ease: "power4", duration: 0.25 });
+    }, 100)
+  );
+</script>
 <%- include("include/footer"); %>
