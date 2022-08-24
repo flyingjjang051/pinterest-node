@@ -1,0 +1,19 @@
+<%- include("include/header"); %>
+<main id="main">
+  <nav id="filter">
+    <h2 class="blind">filtering menu</h2>
+    <ul>
+      <li class="on" data-filter="item">ALL</li>
+      <li data-filter="paint">PAINT</li>
+      <li data-filter="photo">PHOTO</li>
+      <li data-filter="sketch">SKETCH</li>
+    </ul>
+  </nav>
+  <div id="works">
+    <ul class="itemList"></ul>
+  </div>
+</main>
+<div class="cursor">
+  <span class="txt"></span>
+</div>
+<%- include("include/footer"); %>
